@@ -2,6 +2,7 @@
 - name: install python3
   apt:
     name: "{{ item }}"
+  when: xqueue_use_python3
   with_items:
     - python3-pip
     - python3-dev
@@ -14,6 +15,17 @@
   args:
     creates: "{{ xqueue_venv_dir }}/bin/pip"
   become_user: "{{ xqueue_user }}"
+  when: xqueue_use_python3
+  tags:
+    - install
+    - install:system-requirements
+
+- name: build virtualenv with python2.7
+  command: "virtualenv --python=python2.7 {{ xqueue_venv_dir }}"
+  args:
+    creates: "{{ xqueue_venv_dir }}/bin/pip"
+  become_user: "{{ xqueue_user }}"
+  when: not xqueue_use_python3
   tags:
     - install
     - install:system-requirements

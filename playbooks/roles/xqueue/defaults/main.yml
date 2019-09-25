@@ -177,3 +177,6 @@ xqueue_debian_pkgs:
   - ntp
   # Needed to be able to create the xqueue mysqldb.
   - python-mysqldb
+
+# flag to run xqueue on python3
+xqueue_use_python3: true
