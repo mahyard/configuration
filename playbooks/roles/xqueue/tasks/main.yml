@@ -1,4 +1,23 @@
 ---
+- name: install python3
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python3-pip
+    - python3-dev
+  tags:
+    - install
+    - install:system-requirements
+
+- name: build virtualenv with python3
+  command: "virtualenv --python=python3 {{ xqueue_venv_dir }}"
+  args:
+    creates: "{{ xqueue_venv_dir }}/bin/pip"
+  become_user: "{{ xqueue_user }}"
+  tags:
+    - install
+    - install:system-requirements
+
 - name: write devstack script
   template:
     src: "devstack.sh.j2"
