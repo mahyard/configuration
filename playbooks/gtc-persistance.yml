@@ -1,0 +1,16 @@
+---
+
+# Setup an Open edX Datastore server to be used in a small deployment.
+
+- name: Configure instance(s)
+  hosts: all
+  become: True
+  gather_facts: True
+  vars:
+    SWAPFILE_SWAPPINESS: 1
+  roles:
+    - role: swapfile
+      SWAPFILE_SIZE: 4GB
+    - role: common
+    - role: mysql
+    - role: mongo_3_2
